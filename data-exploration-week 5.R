@@ -1,0 +1,146 @@
+---
+title: "Untitled"
+author: "Xiaoyuan"
+date: "2024-02-22"
+output: html_document
+---
+
+# the following exercises are a test in disguise. 
+# what do you think about the coding? 
+# can you think of any improvements to the following?
+
+```{r}
+rm(list=ls()) # always clean up your environment! 
+```
+
+```{r}
+# install.packages("tidyverse") #uncomment to install tidyverse if you haven't already
+
+library(tidyverse)
+```
+
+## PROBLEM 1 ##
+
+# visualizing your data is important!
+  # summary statistics can be highly misleading, and simply plotting the data can reveal a lot more!
+  # Lets look at the Anscombe’s Quartet data. There are four different data sets.
+# Anscombe, F. J. (1973). "Graphs in Statistical Analysis". American Statistician. 27 (1): 17–21. doi:10.1080/00031305.1973.10478966. JSTOR 2682899.
+
+```{dataset setup}
+anscombe_quartet <-  readRDS("~/Desktop/UCL_2023-2024/term 2/DAP/week 5_Xiaoyuan/anscombe_quartet.rds")
+
+
+# let's explore the dataset 
+str(anscombe_quartet)
+
+# what does the function str() do? 
+# Display the structure of the dataset
+```
+
+```{statistics summary}
+# let's check some summary statistics:
+
+result <- anscombe_quartet %>% 
+  group_by(dataset) %>% 
+  summarise(
+    mean_x    = mean(x),
+    mean_y    = mean(y),
+    min_x     = min(x),
+    min_y     = min(y),
+    max_x     = max(x),
+    max_y     = max(y),
+    crrltn    = cor(x, y)
+  )
+View(result)
+
+# what do the summary statistics tell us about the different datasets? 
+# similar summary statistics (mean, min and max, correlation) for both x and y
+```
+
+```{plot}
+# let's plot the data with ggplot:
+
+require(ggplot2)
+
+ggplot(anscombe_quartet, aes(x=x,y=y)) +
+  geom_point() + 
+  geom_smooth(method = "lm",formula = "y ~ x") +
+  facet_wrap(~dataset)
+
+#save the plot
+
+ggsave("anscombe_quartet.png", width = 20, height = 20, units = "cm")
+```
+
+```{conclusion}
+# what do the plots tell us about the different datasets? 
+# they have notably different distributions and scatterplots
+
+# describe the relationship between x and y in the different datasets.
+# dataset_1: it shows a relatively strong positive linear relationship between x and y.
+# dataset_2: y has a sooth curved relation with x.
+# dataset_3: despite having an outlier, it also shows a strong positive linear relationship between x and y.
+# dataset_4: Most of the points are clustered on x = 8, and an outlier is located at x = 19, which affects the regression pattern.
+
+# would linear regression be an appropriate statistical model to analyse the x-y relationship in each dataset?
+# No. Although the datasets are completely different, they show same regression coefficient and similar strong positive linear relationships.
+
+# what conclusions can you draw for the plots and summary statistics? The fact that the summary statistics for the x and y variables in datasets are very similar does not mean that their distributions and scatterplots are also very similar. It is important to visualize data for a comprehensive understanding.
+```
+
+
+
+## PROBLEM 2 ##
+
+```{data preparation}
+# load in the datasaurus dataset
+datasaurus_dozen <-  readRDS("datasaurus_dozen.rds")
+
+# explore the dataset 
+str(datasaurus_dozen)
+
+# how many rows and columns does the datasaurus_dozen file have? 
+# there are 1426 rows and 3 columns in the dataset
+```
+
+```{plot of whole dataset}
+# plot the dataset 
+# calculate the correlations and summary statistics for x and y in all datasets: 
+result_2 <- datasaurus_dozen %>% 
+  summarise(
+    mean_x    = mean(x),
+    mean_y    = mean(y),
+    min_x     = min(x),
+    min_y     = min(y),
+    max_x     = max(x),
+    max_y     = max(y),
+    crrltn    = cor(x, y)
+  )
+View(result_2)
+ggplot(datasaurus_dozen, aes(x=x,y=y)) +
+  geom_point() + 
+  geom_smooth(method = "lm",formula = "y ~ x") +
+  ggtitle("Datasaurus Dozen Scatterplot") +
+  labs(x = "X-axis", y = "Y-axis") 
+ggsave("datasaurus_dozen.png", width = 20, height = 20, units = "cm")
+```
+
+```{plot of each dataset}
+# Plot the relationships between x and y in each dataset including the line of best fit.
+# save the plot 
+
+ggplot(datasaurus_dozen, aes(x=x,y=y)) +
+  geom_point() + 
+  geom_smooth(method = "lm",formula = "y ~ x") +
+  ggtitle("Datasaurus Dozen Scatterplot of different datasets") +
+  labs(x = "X-axis", y = "Y-axis") +
+  facet_wrap(~dataset)
+ggsave("datasaurus_dozen_datasets.png", width = 20, height = 20, units = "cm")
+```
+
+```{conclusion}
+# what conclusions can you draw for the plots and summary statistics? 
+# For the whole dataset, data points are randomly dispersed in a circle shape with a diameter equals to 100.
+# For different datasets, they have very similar mean, max, min and correlation but different data distributions.
+# conclusion: The fact that the summary statistics for the x and y variables in datasets are very similar does not mean that their distributions and scatterplots are also very similar. It is important to visualize data for a comprehensive understanding.
+```
