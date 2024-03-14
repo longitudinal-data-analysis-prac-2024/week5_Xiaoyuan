@@ -23,6 +23,9 @@ result <- anscombe_quartet %>%
   )
 result
 
+
+
+
 ### what do the summary statistics tell us about the different datasets? 
 similar summary statistics (mean, min and max, correlation) for both x and y
 
@@ -38,7 +41,7 @@ ggplot(anscombe_quartet, aes(x=x,y=y)) +
 ### save the plot
 
 ggsave("../plot/anscombe_quartet.png", width = 20, height = 20, units = "cm")
-
+![plot](plot/anscombe_quartet.png)
 
 ### conclusion
 what do the plots tell us about the different datasets? 
@@ -85,7 +88,7 @@ ggplot(datasaurus_dozen, aes(x=x,y=y)) +
   ggtitle("Datasaurus Dozen Scatterplot") +
   labs(x = "X-axis", y = "Y-axis") 
 ggsave("../plot/datasaurus_dozen.png", width = 20, height = 20, units = "cm")
-
+![plot](plot/datasaurus_dozen.png)
 
 ### r plot of each dataset
 #### Plot the relationships between x and y in each dataset including the line of best fit.
@@ -98,7 +101,7 @@ ggplot(datasaurus_dozen, aes(x=x,y=y)) +
   labs(x = "X-axis", y = "Y-axis") +
   facet_wrap(~dataset)
 ggsave("../plot/datasaurus_dozen_datasets.png", width = 20, height = 20, units = "cm")
-
+![plot](plot/datasaurus_dozen_datasets.png)
 
 ### r conclusion for question 2
 what conclusions can you draw for the plots and summary statistics? 
