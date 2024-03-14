@@ -1,5 +1,5 @@
 # Week_Xiaoyuan
-## Report for anscombe_quartet.rds dataset
+## 1. report for anscombe_quartet.rds dataset
 anscombe_quartet <-  readRDS("../data/anscombe_quartet.rds")
 
 ### let's explore the dataset 
@@ -21,10 +21,13 @@ result <- anscombe_quartet %>%
     max_y     = max(y),
     crrltn    = cor(x, y)
   )
-result
-
-
-
+#### result
+|dataset|mean_x|mean_y|min_x|min_y|max_x|max_y|crrltn|
+|-------|------|------|-----|-----|-----|-----|------|
+|dataset_1|9|   7.50   |  4 | 4.26   | 14| 10.8   |0.816
+|dataset_2|9 |  7.50  |   4  |3.1   |  14 | 9.26 | 0.816
+|dataset_3|9  | 7.50  |    4  |5.39 |   14 |12.7 |  0.816
+|dataset_4|9   |7.50|     8  |5.25|    19 |12.5|   0.817
 
 ### what do the summary statistics tell us about the different datasets? 
 similar summary statistics (mean, min and max, correlation) for both x and y
@@ -44,21 +47,21 @@ ggsave("../plot/anscombe_quartet.png", width = 20, height = 20, units = "cm")
 ![plot](plot/anscombe_quartet.png)
 
 ### conclusion
-what do the plots tell us about the different datasets? 
+#### what do the plots tell us about the different datasets? 
 they have notably different distributions and scatterplots
 
-describe the relationship between x and y in the different datasets.
+#### describe the relationship between x and y in the different datasets.
 dataset_1: it shows a relatively strong positive linear relationship between x and y.
 dataset_2: y has a sooth curved relation with x.
 dataset_3: despite having an outlier, it also shows a strong positive linear relationship between x and y.
 dataset_4: Most of the points are clustered on x = 8, and an outlier is located at x = 19, which affects the regression pattern.
 
-would linear regression be an appropriate statistical model to analyse the x-y relationship in each dataset?
+#### would linear regression be an appropriate statistical model to analyse the x-y relationship in each dataset?
 No. Although the datasets are completely different, they show same regression coefficient and similar strong positive linear relationships.
 
-what conclusions can you draw for the plots and summary statistics? The fact that the summary statistics for the x and y variables in datasets are very similar does not mean that their distributions and scatterplots are also very similar. It is important to visualize data for a comprehensive understanding.
+#### what conclusions can you draw for the plots and summary statistics? The fact that the summary statistics for the x and y variables in datasets are very similar does not mean that their distributions and scatterplots are also very similar. It is important to visualize data for a comprehensive understanding.
 
-## Report for datasaurus_dozen.rds dataset
+## 2. report for datasaurus_dozen.rds dataset
 ### load in the datasaurus dataset
 datasaurus_dozen <-  readRDS("../data/datasaurus_dozen.rds")
 
@@ -80,7 +83,10 @@ result_2 <- datasaurus_dozen %>%
     max_y     = max(y),
     crrltn    = cor(x, y)
   )
-result_2
+##### result_2
+|mean_x| mean_y| min_x|  min_y| max_x| max_y|  crrltn|
+|------|-------|------|-------|------|------|-----|
+|1|   54.3|   47.8|  15.6| 0.0151  |98.3|  99.7| -0.0660|
 
 ggplot(datasaurus_dozen, aes(x=x,y=y)) +
   geom_point() + 
@@ -103,8 +109,8 @@ ggplot(datasaurus_dozen, aes(x=x,y=y)) +
 ggsave("../plot/datasaurus_dozen_datasets.png", width = 20, height = 20, units = "cm")
 ![plot](plot/datasaurus_dozen_datasets.png)
 
-### r conclusion for question 2
-what conclusions can you draw for the plots and summary statistics? 
+### conclusion for question 2
+#### what conclusions can you draw for the plots and summary statistics? 
 For the whole dataset, data points are randomly dispersed in a circle shape with a diameter equals to 100.
 For different datasets, they have very similar mean, max, min and correlation but different data distributions.
 Conclusion: The fact that the summary statistics for the x and y variables in datasets are very similar does not mean that their distributions and scatterplots are also very similar. It is important to visualize data for a comprehensive understanding.
